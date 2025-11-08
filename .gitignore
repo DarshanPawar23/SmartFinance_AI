@@ -1,0 +1,54 @@
+Set-Content .gitignore -Value @"
+# ======================
+# PYTHON ENVIRONMENT
+# ======================
+venv/
+python-llm/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+.DS_Store
+
+# ======================
+# JAVASCRIPT / NODE
+# ======================
+node_modules/
+Backend/node_modules/
+dist/
+dist-ssr/
+*.local
+**/.env
+
+# ======================
+# IGNORE OTHER FILES
+# ======================
+*.pt
+*.h5
+*.pkl
+*.joblib
+checkpoints/
+models/
+cache/
+logs/
+*.log
+output/
+*.csv
+*.json
+*.db
+*.sqlite3
+
+# ======================
+# EDITOR / SYSTEM FILES
+# ======================
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+"@
