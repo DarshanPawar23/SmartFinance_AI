@@ -203,6 +203,7 @@ export default function Home() {
                         Institutional-Grade <br />
                         <span className="bg-gradient-to-r from-amber-400 via-white to-amber-400 bg-clip-text text-transparent animate-gradient-move">
                             Smart Finance AI
+                            <span>Dsp</span>
                         </span>
                     </h1>
 
