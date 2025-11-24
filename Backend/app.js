@@ -3,7 +3,7 @@ const cors = require('cors');
 const chatRoutes = require('./routes/chatRoutes');
 const kycRoutes = require('./routes/kycRoutes');
 const applicationRoutes = require('./routes/applicationRoutes');
-require('./config/db'); // Initializes DB connection
+require('./config/db');
 
 const app = express();
 app.use(cors());

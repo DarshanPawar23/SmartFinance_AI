@@ -69,7 +69,6 @@ function decideOffer(creditScore, requestedAmount, salary) {
             preApprovedLimit: preApprovedLimit
         };
     }
-    
     if (requestedAmount <= (preApprovedLimit * 2)) {
         const tenure = 48;
         const emi = calculateEmi(requestedAmount, interest, tenure);

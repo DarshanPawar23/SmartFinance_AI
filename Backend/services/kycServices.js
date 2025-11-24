@@ -10,7 +10,7 @@ const kycService = {
             const emailResult = await emailService.sendVerificationEmail(identifier, otp);
             
             if (emailResult.success) {
-                const expiry = Date.now() + 300000; // 5 minutes
+                const expiry = Date.now() + 300000; 
                 otpStore.set(identifier, { code: otp, expiry });
                 console.log(`[KYC Service] Real OTP (${otp}) sent to ${identifier}`);
                 return { success: true, message: 'OTP Sent to your email.' };
@@ -18,9 +18,8 @@ const kycService = {
                 return { success: false, message: emailResult.message };
             }
         } else {
-            // Dummy OTP for non-email identifiers (e.g., phone numbers in test)
             const code = '654321';
-            const expiry = Date.now() + 120000; // 2 minutes
+            const expiry = Date.now() + 120000; 
             otpStore.set(identifier, { code, expiry });
             console.log(`[DUMMY OTP] OTP for ${identifier} is: ${code}`);
             return { success: true, message: 'OTP Sent (check console)' };
@@ -34,7 +33,7 @@ const kycService = {
             console.log(`Record: ${record ? JSON.stringify(record) : 'Not Found'}. Entered: ${enteredCode}`);
             return { success: false, message: 'Invalid or expired OTP.' };
         }
-        otpStore.delete(identifier); // OTP is used, delete it
+        otpStore.delete(identifier);
         return { success: true, message: 'OTP Verified Successfully.' };
     },
 
@@ -99,7 +98,6 @@ const kycService = {
             address: dbAddress
         };
 
-        // Phone check
         if (extractedPhone && dbRecord.phone_number !== extractedPhone) {
             console.warn(`Phone Mismatch: DB has ${dbRecord.phone_number}, Slip has ${extractedPhone}`);
             return {
@@ -111,21 +109,18 @@ const kycService = {
             console.warn("Could not extract phone from slip. Skipping phone check.");
         }
 
-        // Address check (basic inclusion)
         if (extractedAddress && dbRecord.address) {
             const dbAddressSimple = dbRecord.address.toLowerCase().replace(/[^a-z0-9]/g, '');
             const extAddressSimple = extractedAddress.toLowerCase().replace(/[^a-z0-9]/g, '');
 
             if (!dbAddressSimple.includes(extAddressSimple) && !extAddressSimple.includes(dbAddressSimple)) {
                 console.warn(`Address Mismatch: DB has ${dbRecord.address}, Slip has ${extractedAddress}`);
-                // Note: Not failing the verification for address mismatch, just warning
             }
         }
         if (!extractedAddress) {
             console.warn("Could not extract address from slip. Skipping address check.");
         }
 
-        // Salary requirement checks
         const minSalaryDefault = 15000;
 
         if (loanAmount > 300000 && extractedSalary < 30000) {
@@ -149,7 +144,6 @@ const kycService = {
             };
         }
 
-        // If all checks passed
         return {
             status: 'VERIFIED',
             message: 'Salary Slip Verified.',
@@ -159,7 +153,6 @@ const kycService = {
         };
     },
 
-    // --- NEW FUNCTION ADDED HERE ---
     verifyBankDetails: async ({ pan, accountNumber, ifscCode }) => {
         const sql = `SELECT account_number, ifsc_code FROM bank_accounts WHERE pan_number = ?`;
         try {
@@ -170,15 +163,11 @@ const kycService = {
             const record = rows[0];
 
             if (record.account_number !== accountNumber) {
-                // Specific error for account number
                 return { success: false, message: 'Account Number does not match our records for this PAN.' };
             }
             if (record.ifsc_code.toUpperCase() !== ifscCode.toUpperCase()) {
-                // Specific error for IFSC
                 return { success: false, message: 'IFSC Code does not match our records for this PAN.' };
             }
-
-            // If both match, it's a success
             return { success: true, message: 'Bank details verified.' };
 
         } catch (error) {
@@ -186,7 +175,6 @@ const kycService = {
             return { success: false, message: 'Database error during bank detail verification.' };
         }
     },
-    // --- END OF NEW FUNCTION ---
 
     verifyFinalDetails: async (details) => {
         const { pan, email, phone, dob, accountNumber, ifscCode } = details;

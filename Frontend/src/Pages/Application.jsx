@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams, Link } from 'react-router-dom'; // <-- 1. IMPORT ADDED
+import { useNavigate, useParams, Link } from 'react-router-dom'; 
 import PersonalDetails from '../Components/PersonalDetails';
 import GuarantorDetails from '../Components/GuarantorDetails';
 import FinalConfirmation from '../Components/FinalConfirmation';
-
-// 2. MOCK FUNCTIONS DELETED
-// const useNavigate = () => (path) => { ... };
-// const useParams = () => { ... };
-// const Link = ({ to, children, ...props }) => ( ... );
 
 const API_URL = 'http://localhost:5002/api';
 
@@ -238,7 +233,7 @@ const Application = () => {
                 setIsCurrentStepValid(true);
             }
         } else {
-            navigate('/agent'); // <-- This will now work
+            navigate('/agent'); 
         }
     };
 
@@ -291,7 +286,7 @@ const Application = () => {
       <header className="fixed top-0 left-0 right-0 z-20 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
         <div className="mx-auto w-full px-4 sm:px-8 py-5 flex items-center justify-between">
           <div className="flex items-center">
-            <Link to="/" className="text-2xl sm:text-3xl font-bold"> {/* <-- Now uses real Link */}
+            <Link to="/" className="text-2xl sm:text-3xl font-bold"> 
               <span className="bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
                 Smart Finance AI
               </span>
@@ -302,7 +297,7 @@ const Application = () => {
           </div>
           <nav>
             <button
-              onClick={() => navigate('/agent')} // <-- This will now work
+              onClick={() => navigate('/agent')} 
               className="rounded-lg bg-red-600 px-3 py-2 sm:px-4 text-sm font-semibold text-white transition-all hover:bg-red-700 hover:shadow-lg"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 inline-block sm:mr-2">

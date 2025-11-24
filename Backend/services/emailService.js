@@ -251,7 +251,7 @@ async function sendApprovalEmail(userEmail, formData) {
         attachments: [
             {
                 filename: 'Loan_Sanction_Letter.pdf',
-                content: Buffer.from(pdfBytes), // Convert Uint8Array to Buffer for Nodemailer
+                content: Buffer.from(pdfBytes), 
                 contentType: 'application/pdf',
             },
         ],

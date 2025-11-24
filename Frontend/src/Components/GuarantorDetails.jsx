@@ -1,8 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import FormInput from './FormInput';
-import GuarantorFaceMatch from './GuarantorFaceMatch'; // <-- Make sure this is imported
+import GuarantorFaceMatch from './GuarantorFaceMatch'; 
 
-// Helper function to calculate age
 const getAge = (dateString) => {
     if (!dateString) return 0;
     const today = new Date();
@@ -15,12 +14,10 @@ const getAge = (dateString) => {
     return age;
 };
 
-// Dummy OTP for this component
 const DUMMY_GUARANTOR_OTP = '123456';
 
 const GuarantorDetails = ({ 
     formData, 
-    // applicantFaceImage, // <-- REMOVED this prop
     updateField, 
     setValid, 
     faceApiReady, 
@@ -30,7 +27,6 @@ const GuarantorDetails = ({
     const [otpTimer, setOtpTimer] = useState(0);
     const [dobError, setDobError] = useState(null);
 
-    // Timer logic for OTP
     useEffect(() => {
         if (otpTimer > 0) {
             const timer = setTimeout(() => setOtpTimer(otpTimer - 1), 1000);
@@ -38,7 +34,6 @@ const GuarantorDetails = ({
         }
     }, [otpTimer]);
 
-    // Validation for Step 1
     const isStep1Valid = useMemo(() => {
         const age = getAge(formData.dob);
         const isDobValid = age >= 25;
@@ -53,17 +48,13 @@ const GuarantorDetails = ({
         );
     }, [formData]);
 
-    // Validation for Step 2
     const isStep2Valid = useMemo(() => {
         return formData.faceVerified;
     }, [formData.faceVerified]);
 
-    // Update overall form validity
     useEffect(() => {
         setValid(isStep1Valid && isStep2Valid);
     }, [isStep1Valid, isStep2Valid, setValid]);
-
-    // --- Step 1 Handlers ---
 
     const handleDobChange = (e) => {
         const newDob = e.target.value;
@@ -96,7 +87,6 @@ const GuarantorDetails = ({
         }
     };
 
-    // --- Navigation ---
     const handleNextSubStep = () => {
         if (subStep === 1 && isStep1Valid) setSubStep(2);
     };
@@ -104,8 +94,6 @@ const GuarantorDetails = ({
     const handlePrevSubStep = () => {
         if (subStep === 2) setSubStep(1);
     };
-
-    // --- Render Functions ---
 
     const renderStep1 = () => (
         <div className="space-y-6">
@@ -195,12 +183,9 @@ const GuarantorDetails = ({
             </div>
         </div>
     );
-
-    // --- RENDER STEP 2 IS NOW UPDATED ---
     const renderStep2 = () => (
         <GuarantorFaceMatch
             formData={formData}
-            // applicantFaceImage={applicantFaceImage} // <-- REMOVED
             updateField={updateField}
             faceApiReady={faceApiReady}
             modelsLoaded={modelsLoaded}
@@ -211,7 +196,6 @@ const GuarantorDetails = ({
         <div className="space-y-6">
             <h3 className="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-3">2. Guarantor Details</h3>
             
-            {/* --- Sub-step Progress Bar --- */}
             <div className="flex items-center justify-center space-x-2 mb-6">
                 <div className="flex flex-col items-center">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold ${subStep === 1 ? 'bg-blue-600 text-white' : 'bg-green-600 text-white'}`}>

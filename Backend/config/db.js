@@ -1,4 +1,3 @@
-// config/db.js (UPDATED: Promise-based pool for async queries; efficient connection handling)
 const mysql = require('mysql2/promise');
 const dotenv = require('dotenv');
 dotenv.config();

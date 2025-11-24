@@ -13,12 +13,10 @@ const classifyIntent = async (text) => {
         text: text 
       },
       {
-        // Give the local model 60s to load/run if it's on a slow CPU
         timeout: 60000 
       }
     );
 
-    // 3. GET THE INTENT FROM THE RESPONSE
     const label = response.data.intent;
     if (!label) {
       console.error('Local intent server returned an empty intent:', response.data);

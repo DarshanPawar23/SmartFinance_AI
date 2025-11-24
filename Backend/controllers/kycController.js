@@ -130,7 +130,6 @@ const verifySalarySlip = async (req, res) => {
     }
 };
 
-// ... (at the end of the file, before module.exports)
 
 const verifyBankDetails = async (req, res) => {
     try {
